@@ -49,6 +49,32 @@ async function integrateWithAPI(query, page) {
     }
   }
 
+  app.use((req, res, next) => {
+    console.log({
+        type: 'messageIn',
+        body: req.body,
+        method: req.method,
+        path: req.path,
+        dateTime: new Date().toISOString(),
+    });
+    next();
+});
+
+app.use((req, res, next) => {
+    const originalSend = res.send;
+
+    res.send = function (body) {
+        console.log({
+            type: 'messageOut',
+            body: body,
+            dateTime: new Date().toISOString(),
+        });
+        originalSend.apply(res, arguments);
+    };
+
+    next();
+});
+
   app.use((err, req, res, next) => {
     console.error('Error:', err.message);
     res.status(500).json({ error: 'Internal Server Error' });
