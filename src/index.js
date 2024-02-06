@@ -1,8 +1,10 @@
 const express = require('express');
 const axios = require('axios');
+const cors = require('cors');
 const PORT = 8080;
 
 const app = express();
+app.use(cors());
 
 function validateQuery(query) {
     return typeof query === 'string' && query.length >= 1;
