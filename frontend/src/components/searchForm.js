@@ -30,7 +30,7 @@ const SearchForm = () => {
     }
 
     try {
-      const response = await axios.get(`http://localhost:8080/?query=${query}&page=${page}`);
+      const response = await axios.get(`http://localhost:8080/api/search/?query=${query}&page=${page}`);
       setProducts(response.data);
     } catch (error) {
       alert('Error fetching data from the server.');
