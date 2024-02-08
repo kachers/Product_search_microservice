@@ -19,9 +19,13 @@ async function searchController(req, res, next) {
     const apiProducts = await integrateWithAPI(req.query.query, req.query.page);
     const transformedProducts = transformApiResponse({ data: { products: apiProducts } });
 
-    res.json(transformedProducts);
+    res.status(200).json(transformedProducts);
   } catch (error) {
-    next(error);
+    if (error.message.includes('Invalid query parameter') || error.message.includes('Invalid page parameter')) {
+      res.status(400).json({ error: error.message });
+    } else {
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
   }
 }
 

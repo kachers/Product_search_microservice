@@ -1,8 +1,10 @@
+require('dotenv').config();
+
 const axios = require('axios');
 
 async function integrateWithAPI(query, page) {
   try {
-    const apiUrl = 'https://dummyjson.com/products/search';
+    const apiUrl = process.env.API_URL;
     const limit = 2;
     const skip = (page - 1) * limit;
     const response = await axios.get(apiUrl, {

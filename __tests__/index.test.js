@@ -1,5 +1,5 @@
 const request = require('supertest');
-const app = require('../src/index');
+const app = require('../index');
 
 describe('Server setup', () => {
   it('responds with 400 for /api/search with invalid query parameter', async () => {
